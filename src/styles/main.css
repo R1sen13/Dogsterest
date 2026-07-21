@@ -151,17 +151,6 @@ label {
 }
 
 /**
-  Приводим к единому цвету svg-элементы
- */
-[fill] {
-  fill: currentColor;
-}
-
-[stroke] {
-  stroke: currentColor;
-}
-
-/**
   Чиним баг задержки смены цвета при взаимодействии с svg-элементами
  */
 svg * {
@@ -232,6 +221,7 @@ svg * {
   --color-dark-20: #333333;
   --color-dark-40: #666666;
   --color-red: #e60023;
+  --border-radius: 0.625rem;
   --font-family-base: "Inter", sans-serif;
   --font-family-accent: "Kumbh Sans", sans-serif;
   --transition-duration: 0.3s;
@@ -451,6 +441,29 @@ a[class] {
   100% {
     transform: translate(0, 0) rotateX(0) rotateY(360deg);
   }
+}
+.cards {
+  padding-inline: 1.25rem;
+}
+
+.dogs-card {
+  width: 100%;
+  height: auto;
+  display: grid;
+  row-gap: 0.4375rem;
+}
+.dogs-card__image, .dogs-card__video {
+  height: auto;
+  width: 100%;
+  border-radius: var(--border-radius);
+}
+
+.icon {
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=main.css.map */

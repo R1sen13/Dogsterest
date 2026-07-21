@@ -1,4 +1,8 @@
 export type NewsListProps = {
     isLiked: boolean,
-    URLPath: string
+    URLPath: string,
+    fileType: FileFormatKind,
+    onCardClick: () => void;
 }
+
+export type FileFormatKind = 'image' | 'video' | 'unknown';
