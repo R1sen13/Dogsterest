@@ -2,47 +2,63 @@ const prisma = require('../database/database')
 
 async function PubFindLikedAll(req, res) {
     const publications = await prisma.publication.findMany({
-        where: {
-            filename: req.params.filename
-        },
-        skip: req.body.offset,
-        take: req.body.limit
+        skip: parseInt(req.query.offset) || 0,
+        take: parseInt(req.query.limit) || 10
     })
 
     if (!publications) {
-        res.json({"No publications": true})
+        const err = new Error('Публикации не найдены');
+        err.status = 404;
+        throw err;
     }
 
     res.json(publications)
 }
 
 async function PubFindUnique(req, res) {
+    const filename = req.params.filename;
+
+        if (!filename) {
+            const err = new Error('Нет такого названия файла');
+            err.status = 400;
+            throw err;
+        }
+
     const publication = await prisma.publication.findUnique({
         where: {
-            filename: req.params.filename
+            filename: filename,
         }
     })
-
     if (!publication) {
-        throw new Error("No publications found")
+        const err = new Error('Публикация не найдена');
+        err.status = 404;
+        throw err;
     }
-
-    res.json(publication)
+    res.status(200).json(publication)
 }
 
+
 async function PubDislikePublication(req, res) {
+    const filename = req.params.filename;
+
+        if (!filename) {
+            const err = new Error('Нет такого названия файла');
+            err.status = 400;
+            throw err;
+        }
+
     await prisma.publication.update({
         where: {
-            filename: req.params.filename,
-            liked: true
+            filename: filename,
         },
         data: {
-            likes: publication.likes-=1,
-            liked: false
+            likes: {
+                decrement: 1
+            }
         }
     })
 
-    res.json({"success": true})
+    res.status(200).json({"Успех": true})
 }
 
 module.exports = {PubFindLikedAll, PubFindUnique, PubDislikePublication}

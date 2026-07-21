@@ -17,5 +17,4 @@ model Publication {
     id Int @id @default(autoincrement())
     filename String @unique
     likes Int @default(0)
-    liked Boolean @default(false)
 }

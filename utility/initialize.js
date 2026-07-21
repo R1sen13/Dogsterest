@@ -13,7 +13,7 @@ async function initializeDB() {
 }
 
 async function dropDB() {
-    const deleted = await prisma.product.deleteMany({})
+    const deleted = await prisma.publication.deleteMany({})
     console.log(`Deleted ${deleted.count}`)
 }
 
