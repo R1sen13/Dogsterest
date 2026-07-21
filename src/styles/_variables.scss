@@ -1,0 +1,18 @@
+@use "./helpers" as *;
+
+:root {
+  --color-light: #ffffff;
+
+  --color-dark: #141414;
+  --color-dark-10: #1a1a1a;
+  --color-dark-15: #262626;
+  --color-dark-20: #333333;
+  --color-dark-40: #666666;
+
+  --color-red: #e60023;
+
+  --font-family-base: "Inter", sans-serif;
+  --font-family-accent: "Kumbh Sans", sans-serif;
+
+  --transition-duration: 0.3s;
+}
