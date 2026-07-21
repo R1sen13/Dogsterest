@@ -4,9 +4,11 @@ async function initializeDB() {
     const response = await fetch('https://random.dog/doggos')
     const data = await response.json()
     for (let url in data) {
+        const randomLikes = Math.floor(Math.random() * 101)
         await prisma.publication.create({
             data: {
-                filename: data[url]
+                filename: data[url],
+                likes: randomLikes
             }
         })
     }
