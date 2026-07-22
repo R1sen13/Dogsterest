@@ -1,0 +1,10 @@
+@use "../helpers" as *;
+.blog {
+    &-action {
+        &__list {
+            display: flex;
+            align-items: center;
+            column-gap: rem(10);
+        }
+    }
+}

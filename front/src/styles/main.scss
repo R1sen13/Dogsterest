@@ -1,0 +1,11 @@
+@use 'normalize';
+@use 'fonts';
+@use 'variables';
+@use 'utils';
+@use 'globals';
+
+@use './blocks/loader';
+@use './blocks/card';
+@use './blocks/icon';
+@use './blocks/header';
+@use './blocks/blog'

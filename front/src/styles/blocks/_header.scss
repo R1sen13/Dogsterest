@@ -1,0 +1,23 @@
+@use '../helpers' as *;
+
+.header {
+    padding: rem(15);
+
+    &__nav {
+        &-list {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            column-gap: rem(10);
+        }
+
+        &-item {
+            padding: rem(5) rem(15);
+        }
+
+        &-item:has(.header__nav-link.active) {
+            background-color: var(--color-dark-40);
+            border-radius: var(--border-radius);
+        }
+    }
+}
