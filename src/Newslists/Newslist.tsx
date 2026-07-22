@@ -36,7 +36,7 @@ function saveLikedItems(items: string[]) {
 }
 
 function Newslist({ showLikedOnly = false }: NewslistProps) {
-    const BASE_URL = 'localhost:3000'
+    const BASE_URL = 'https://random.dog/'
     const ITEMS_PER_PAGE = 15
 
     const [loading, setLoading] = useState<boolean>(true)
