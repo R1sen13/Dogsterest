@@ -6,3 +6,7 @@ export type NewsListProps = {
 }
 
 export type FileFormatKind = 'image' | 'video' | 'unknown';
+
+export type NewslistProps = {
+    showLikedOnly?: boolean
+}

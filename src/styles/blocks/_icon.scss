@@ -1,8 +1,16 @@
-.icon{
+@use '../helpers' as *;
+
+.icon {
     background-color: transparent;
     border: none;
 
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: rem(5);
+
+    &:hover {
+        background-color: var(--color-dark-40);
+        border-radius: var(--border-radius);
+    }
 }

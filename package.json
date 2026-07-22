@@ -11,9 +11,9 @@
     "sass-watch": "sass --watch ."
   },
   "dependencies": {
-    "@rtk-query/codegen-openapi": "^2.2.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+    "react-infinite-scroll-component": "^7.2.1",
     "react-responsive-masonry": "^2.7.2",
     "react-router-dom": "^7.18.1"
   },
