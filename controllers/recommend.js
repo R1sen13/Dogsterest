@@ -2,8 +2,11 @@ const prisma = require('../database/database')
 
 async function PubFindAll(req, res) {
     const publications = await prisma.publication.findMany({
-        skip: parseInt(req.query.offset) || 0,
-        take: parseInt(req.query.limit) || 10
+        select: {
+            filename: true,
+            likes: true
+        }
+
     })
 
     if (!publications) {
@@ -27,6 +30,10 @@ async function PubFindUnique(req, res) {
     const publication = await prisma.publication.findUnique({
         where: {
             filename: filename
+        },
+        select: {
+            filename: true,
+            likes: true
         }
     })
 
