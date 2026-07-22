@@ -7,7 +7,15 @@ git clone https://github.com/R1sen13/Dogsterest
 cd https://github.com/R1sen13/Dogsterest
 ```
 
-## 2. Install dependencies
+## 2. Set up environment variables
+ 
+Before running the app, create a `.env` file in the `back` folder with your own database connection string:
+ 
+```
+DATABASE_URL="your_database_url_here"
+```
+
+## 3. Install dependencies
 
 You need to install dependencies separately in both the `back` and `front` folders.
 
@@ -25,7 +33,7 @@ cd ../front
 npm i
 ```
 
-## 3. Run the app
+## 4. Run the app
 
 **Start the backend** (from the `back` folder):
 
