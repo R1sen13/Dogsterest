@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import InfiniteScroll from 'react-infinite-scroll-component'
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry"
 
-import type { FileFormatKind, NewslistProps } from "../types/Newslists"
+import type { FileFormatKind, NewslistProps, getDoggosType } from "../types/Newslists"
 import { getDoggos } from '../services/api'
 
 import Card from "./Card"
@@ -36,12 +36,12 @@ function saveLikedItems(items: string[]) {
 }
 
 function Newslist({ showLikedOnly = false }: NewslistProps) {
-    const BASE_URL = 'https://random.dog/'
+    const BASE_URL = 'localhost:3000'
     const ITEMS_PER_PAGE = 15
 
     const [loading, setLoading] = useState<boolean>(true)
-    const [allDoggos, setAllDoggos] = useState<string[]>([])
-    const [displayedDoggos, setDisplayedDoggos] = useState<string[]>([])
+    const [allDoggos, setAllDoggos] = useState<getDoggosType[]>([])
+    const [displayedDoggos, setDisplayedDoggos] = useState<getDoggosType[]>([])
     const [likedItems, setLikedItems] = useState<Set<string>>(new Set())
     const [hasMore, setHasMore] = useState<boolean>(true)
     const [page, setPage] = useState<number>(0)
@@ -51,15 +51,16 @@ function Newslist({ showLikedOnly = false }: NewslistProps) {
             try {
                 setLoading(true)
                 const data = await getDoggos()
-                setAllDoggos(data)
+                const doggosArray = Array.isArray(data) ? data : [data]
+                setAllDoggos(doggosArray)
 
                 const likedUrls = getLikedItems()
                 const likedSet = new Set(likedUrls)
                 setLikedItems(likedSet)
 
                 const filteredData = showLikedOnly
-                    ? data.filter(url => likedSet.has(BASE_URL + url))
-                    : data
+                    ? doggosArray.filter(item => likedSet.has(BASE_URL + item.filename))
+                    : doggosArray
 
                 const initialItems = filteredData.slice(0, ITEMS_PER_PAGE)
                 setDisplayedDoggos(initialItems)
@@ -76,7 +77,7 @@ function Newslist({ showLikedOnly = false }: NewslistProps) {
 
     const fetchMoreData = () => {
         const filteredData = showLikedOnly
-            ? allDoggos.filter(url => likedItems.has(BASE_URL + url))
+            ? allDoggos.filter(item => likedItems.has(BASE_URL + item.filename))
             : allDoggos
 
         if (displayedDoggos.length >= filteredData.length) {
@@ -110,7 +111,7 @@ function Newslist({ showLikedOnly = false }: NewslistProps) {
 
             if (showLikedOnly) {
                 const updatedFiltered = allDoggos
-                    .filter(doggo => newLiked.has(BASE_URL + doggo))
+                    .filter(doggo => newLiked.has(BASE_URL + doggo.filename))
                 setDisplayedDoggos(updatedFiltered.slice(0, ITEMS_PER_PAGE))
                 setHasMore(updatedFiltered.length > ITEMS_PER_PAGE)
                 setPage(0)
@@ -144,7 +145,7 @@ function Newslist({ showLikedOnly = false }: NewslistProps) {
                 >
                     <Masonry>
                         {displayedDoggos.map((doggo, index) => {
-                            const fullUrl = BASE_URL + doggo;
+                            const fullUrl = BASE_URL + doggo.filename;
                             const isLiked = likedItems.has(fullUrl);
 
                             return (
@@ -152,7 +153,8 @@ function Newslist({ showLikedOnly = false }: NewslistProps) {
                                     key={index}
                                     isLiked={isLiked}
                                     URLPath={fullUrl}
-                                    fileType={getFileType(doggo)}
+                                    fileType={getFileType(doggo.filename)}
+                                    LikeCount={doggo.likes}
                                     onCardClick={() => handleCardClick(fullUrl)}
                                 />
                             );

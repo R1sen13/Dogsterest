@@ -1,7 +1,7 @@
-import type { NewsListProps } from "../types/Newslists";
+import type { CardProps } from "../types/Newslists";
 import Icon from "./Icon";
 
-function Card({ isLiked, URLPath, fileType, onCardClick }: NewsListProps) {
+function Card({ isLiked, URLPath, fileType, onCardClick, LikeCount }: CardProps) {
 
     const renderMedia = () => {
         switch (fileType) {
@@ -37,11 +37,14 @@ function Card({ isLiked, URLPath, fileType, onCardClick }: NewsListProps) {
         <article className="dogs-card">
             {renderMedia()}
             <ul className="blog-action__list">
+                <li className="blog-action__item">
+                    {LikeCount}
+                </li>
                 <li className="blog-action__item" onClick={onCardClick}>
                     <Icon Like={isLiked} />
                 </li>
             </ul>
-        </article>
+        </article >
     );
 }
 

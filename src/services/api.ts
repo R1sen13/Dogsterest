@@ -1,8 +1,11 @@
 import { request } from "./utils/api";
 
 // Получения списка изображений\видео
-export const getDoggos = async (): Promise<string[]> => {
-    return request('/doggos');
+export const getDoggos = async (): Promise<{
+    filename: string;
+    likes: number;
+}> => {
+    return request('/publications');
 };
 
 // Получение конкретного изображения\видео по имени файла

@@ -1,6 +1,6 @@
 import { checkResponse } from "./responseChek";
 
-const API_URL = 'https://random.dog';
+const API_URL = 'localhost:3000';
 
 export const request = async <T>(endpoint: string, options: RequestInit = {}): Promise<T> => {
     const res = await fetch(`${API_URL}${endpoint}`, options);
